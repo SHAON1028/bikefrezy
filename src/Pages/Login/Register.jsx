@@ -50,6 +50,7 @@ const Register = () => {
         })
         .then(res => res.json())
         .then(data =>{
+            console.log(data)
             setCreatedUserEmail(email);
         })
     }
@@ -90,7 +91,9 @@ const Register = () => {
                             with email</a>
 
                         <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
+                      
                     </div>
+                    <p className='text-red-600'>{signUpError}</p>
 
                     <form onSubmit={handleSubmit(handleSignUp)}>
                         <div className="mt-4">
@@ -144,7 +147,7 @@ const Register = () => {
 
                         </span>
 
-                        <Link to="/register" className=" font-bold text-xs text-blue-700 uppercase dark:text-blue-700 hover:underline"> sign In</Link>
+                        <Link to="/login" className=" font-bold text-xs text-blue-700 uppercase dark:text-blue-700 hover:underline"> sign In</Link>
 
                         <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
                     </div>
