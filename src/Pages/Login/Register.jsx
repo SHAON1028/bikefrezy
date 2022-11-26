@@ -1,15 +1,65 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../contexts/AuthProvider';
 
 const Register = () => {
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { createUser, updateUser } = useContext(AuthContext);
+    const [signUpError, setSignUPError] = useState('');
+    const [createdUserEmail, setCreatedUserEmail] = useState('')
+    // const [token] = useToken(createdUserEmail);
+    const navigate = useNavigate();
+
+    // if(token){
+    //     navigate('/');
+    // }
+
+    const handleSignUp = (data) => {
+        console.log(data)
+        setSignUPError('');
+        createUser(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user);
+                toast('User Created Successfully.')
+                const userInfo = {
+                    displayName: data.name
+                }
+                updateUser(userInfo)
+                    .then(() => {
+                        saveUser(data.name, data.email,data.role);
+                    })
+                    .catch(err => console.log(err));
+            })
+            .catch(error => {
+                console.log(error)
+                setSignUPError(error.message)
+            });
+    }
+
+    const saveUser = (name, email,role) =>{
+        const user ={name, email,role};
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data =>{
+            setCreatedUserEmail(email);
+        })
+    }
+
     return (
         <section className='m-20'>
             <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl " style={{
                 backgroundImage: `url("https://images.singletracks.com/blog/wp-content/uploads/2019/09/DarkBG_00_CAPRA29_SE_Front.jpg")`,
             }}   >
-                {/* <div className="hidden bg-cover lg:block lg:w-3/5 opacity-50 "
-       
-        > </div> */}
+
 
                 <div className="mx-auto w-full px-6 py-8 md:px-8 lg:w-1/2">
                     <h2 className="text-2xl font-semibold text-center text-gray-700 dark:text-white">
@@ -42,38 +92,48 @@ const Register = () => {
                         <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
                     </div>
 
-                    <form>
+                    <form onSubmit={handleSubmit(handleSignUp)}>
                         <div className="mt-4">
                             <div className="flex justify-between">
-                                <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" for="loggingPassword">Full Name</label></div>
+                                <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="name">Full Name</label></div>
 
-                            <input className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="text" />
+                            <input  {...register("name", {
+                            required: "Name is Required"
+                        })}  className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="text" />
+                          {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                         </div>
                         <div className="mt-4">
                             <div className="flex justify-between">
-                                <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" for="loggingPassword">Email</label></div>
+                                <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="eamil">Email</label></div>
 
-                            <input className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="email" />
+                            <input  {...register("email", {
+                            required: true
+                        })} className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="email" />
+                          {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
                         </div>
 
                         <div className="mt-4">
                             <div className="flex justify-between">
-                                <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" for="loggingPassword">Password</label>
+                                <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="loggingPassword">Password</label>
                                 <a href="#" className="text-xs text-gray-500 dark:text-gray-300 hover:underline">Forget Password?</a>
                             </div>
 
-                            <input id="loggingPassword" className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="password" />
+                            <input {...register("password", {
+                                required: "Password is required",
+                                minLength: { value: 6, message: 'Password must be 6 characters or longer' }
+                            })} className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="password" />
+                            {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                         </div>
                         <div className='mt-4'>
-                            <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" for="loggingPassword">Select Role</label>
-                            <select className="block w-full px-4 py-2 text-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300">
-                                <option disabled selected>Buyer</option>
+                            <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="loggingPassword">Select Role</label>
+                            <select {...register("role")} className="block w-full px-4 py-2 text-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300">
+                                <option  defaultValue>Buyer</option>
                                 <option>Seller</option>
                             </select>
                         </div>
                         <div className="mt-8">
                             <button type='submit' className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-gray-700 rounded hover:bg-gray-600 focus:outline-none focus:bg-gray-600">
-                                Login
+                                Sign Up
                             </button>
                         </div>
                     </form>
