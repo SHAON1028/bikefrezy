@@ -73,14 +73,14 @@ const Navbar = () => {
                         </a>
                     </li>
                     <li>
-                        <a
-                            href="/"
+                        <Link
+                            to="/blog"
                             aria-label="About us"
-                            title="About us"
+                            title="Blog"
                             className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                         >
-                            About us
-                        </a>
+                           Blog
+                        </Link>
                     </li>
                 </ul>
                 <ul className="flex items-center hidden space-x-8 lg:flex">
@@ -198,16 +198,16 @@ const Navbar = () => {
                                             </a>
                                         </li>
                                         <li>
-                                            <a
-                                                href="/"
-                                                aria-label="About us"
-                                                title="About us"
-                                                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                            >
-                                                About us
-                                            </a>
-                                        </li>
-                                        <li>
+                        <Link
+                            to="/blog"
+                            aria-label="About us"
+                            title="Blog"
+                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                        >
+                           Blog
+                        </Link>
+                    </li>
+                        <li>
                        {
                         user?.uid ? <>
                         <button onClick={handleLogOut} className='btn btn-error btn-sm'>Sign Out</button>

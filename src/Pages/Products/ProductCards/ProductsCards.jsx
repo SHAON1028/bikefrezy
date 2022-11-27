@@ -3,7 +3,7 @@ import {BsCalendar2DateFill} from 'react-icons/bs'
 import {ImLocation2} from 'react-icons/im'
 import {FaUser} from 'react-icons/fa'
 
-const ProductsCards = ({product}) => {
+const ProductsCards = ({product,setSelectProduct}) => {
     const{name,location,originalPrice,picture,postDate,resalePrice,sellerName,yearOfUse} = product;
     
     return (
@@ -34,7 +34,7 @@ const ProductsCards = ({product}) => {
                        
                     </div>
                     <div className="inline-block align-bottom">
-                    <label  htmlFor="booking-modal"className="bg-yellow-300 opacity-75 hover:opacity-100 text-yellow-900 hover:text-gray-900 rounded-full px-10 py-2 font-semibold cursor-pointer"><i className="mdi mdi-cart -ml-2 mr-2"></i> BUY NOW</label>
+                    <label   onClick={() => setSelectProduct(product)}  htmlFor="booking-modal"className="bg-yellow-300 opacity-75 hover:opacity-100 text-yellow-900 hover:text-gray-900 rounded-full px-10 py-2 font-semibold cursor-pointer"><i className="mdi mdi-cart -ml-2 mr-2"></i> BUY NOW</label>
                        
                     </div>
                 </div>
