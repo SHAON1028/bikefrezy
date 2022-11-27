@@ -3,13 +3,15 @@ import { useContext } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
 import useAdmin from '../../Hooks/useAdmin';
+import useSeller from '../../Hooks/useSeller';
 
 import Navbar from '../../Pages/shared/Navbar/Navbar';
 
 const DashboardLayout = () => {
     const { user } = useContext(AuthContext)
     const [isAdmin] = useAdmin(user?.email)
-    console.log(isAdmin)
+    const [isSeller] = useSeller(user?.email)
+    // console.log(isAdmin)
     return (
         <div>
             <Navbar></Navbar>
@@ -49,22 +51,45 @@ const DashboardLayout = () => {
     <ul className="menu p-4 lg:w-80 w-40 bg-base-100 text-base-content">
   
      {
-       !isAdmin &&  <li><a>Sidebar Item 1</a></li>
+       !isAdmin && !isSeller &&  <Link to="#" className="flex items-center p-2 text-base font-normal bg-gray-700 rounded-lg dark:text-white hover:bg-green-500 hover:text-black mb-2">
+       <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
+       <span className="flex-1 ml-3 whitespace-nowrap">My orders</span>
+   </Link>
      }
       {
                             isAdmin && <>
 
-                                <Link to="#" class="flex items-center p-2 text-base font-normal bg-gray-700 rounded-lg dark:text-white hover:bg-green-500 hover:text-black mb-2">
-                                    <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-                                    <span class="flex-1 ml-3 whitespace-nowrap">All Buyers</span>
+                                <Link to="#" className="flex items-center p-2 text-base font-normal bg-gray-700 rounded-lg dark:text-white hover:bg-green-500 hover:text-black mb-2">
+                                    <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
+                                    <span className="flex-1 ml-3 whitespace-nowrap">All Buyers</span>
                                 </Link>
-                                <Link to="#" class="flex items-center p-2 text-base font-normal bg-gray-700 rounded-lg dark:text-white hover:bg-green-500 hover:text-black">
-                                    <svg aria-hidden="true" class="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-                                    <span class="flex-1 ml-3 whitespace-nowrap">All Sellers</span>
+                                <Link to="#" className="flex items-center p-2 text-base font-normal bg-gray-700 rounded-lg dark:text-white hover:bg-green-500 hover:text-black">
+                                    <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
+                                    <span className="flex-1 ml-3 whitespace-nowrap">All Sellers</span>
                                 </Link>
 
                             </>
                         }
+                        
+                            {
+                                isSeller && <>
+    
+                                    <Link to="#" className="flex items-center p-2 text-base font-normal bg-gray-700 rounded-lg dark:text-white hover:bg-green-500 hover:text-black mb-2">
+                                        <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
+                                        <span className="flex-1 ml-3 whitespace-nowrap">My Products</span>
+                                    </Link>
+                                    <Link to="#" className="flex items-center p-2 mb-2 text-base font-normal bg-gray-700 rounded-lg dark:text-white hover:bg-green-500 hover:text-black">
+                                        <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
+                                        <span className="flex-1 ml-3 whitespace-nowrap">Add Products</span>
+                                    </Link>
+                                    <Link to="#" className="flex items-center p-2 text-base font-normal bg-gray-700 rounded-lg dark:text-white hover:bg-green-500 hover:text-black">
+                                        <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd"></path></svg>
+                                        <span className="flex-1 ml-3 whitespace-nowrap">Add to Advertise</span>
+                                    </Link>
+    
+                                </>
+                            }
+                        
      
     </ul>
   

@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import Loading from './Pages/shared/Loading';
+
 import toast from 'react-hot-toast';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './Routes/Route/Route';
