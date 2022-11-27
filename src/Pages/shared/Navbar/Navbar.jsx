@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthProvider';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const {user,logOut} = useContext(AuthContext)
+    const handleLogOut = () => {
+        logOut()
+            .then(() => { })
+            .catch(err => console.log(err));
+    }
 
     return (
 
@@ -77,7 +85,15 @@ const Navbar = () => {
                 </ul>
                 <ul className="flex items-center hidden space-x-8 lg:flex">
                     <li>
-                        <Link to="/login"><button className='btn btn-primary btn-sm'>Sign In</button></Link>
+                       {
+                        user?.uid ? <>
+                        <button onClick={handleLogOut} className='btn btn-error btn-sm'>Sign Out</button>
+                        </>:
+                        <>
+                         <Link to="/login"><button className='btn btn-primary btn-sm'>Sign In</button></Link>
+                        
+                        </>
+                       }
                     </li>
                 </ul>
                 <div className="lg:hidden">
@@ -192,8 +208,16 @@ const Navbar = () => {
                                             </a>
                                         </li>
                                         <li>
-                                            <Link to="/login"><button className='btn btn-primary btn-sm'>Sign In</button></Link>
-                                        </li>
+                       {
+                        user?.uid ? <>
+                        <button onClick={handleLogOut} className='btn btn-error btn-sm'>Sign Out</button>
+                        </>:
+                        <>
+                         <Link to="/login"><button className='btn btn-primary btn-sm'>Sign In</button></Link>
+                        
+                        </>
+                       }
+                    </li>
                                     </ul>
                                 </nav>
                             </div>

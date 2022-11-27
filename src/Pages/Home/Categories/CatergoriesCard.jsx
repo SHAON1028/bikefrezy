@@ -2,9 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const CatergoriesCard = ({ category }) => {
-    const { title, img, brand } = category
+    const { categoryName, img, brand } = category
+
+
     return (
-        <Link to=''>
+        <Link to={`/products/${categoryName}`}>
        
         <div className="overflow-hidden rounded-lg bg-white text-slate-500 shadow-md shadow-slate-200">
       
@@ -15,7 +17,7 @@ const CatergoriesCard = ({ category }) => {
               className="aspect-video w-full "
             />
             <figcaption className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-slate-900 p-6 text-white">
-              <h3 className="text-xl font-bold ">{title}</h3>
+              <h3 className="text-xl font-bold ">{categoryName}</h3>
               <p className="text-sm opacity-75"> {brand}</p>
             </figcaption>
           </figure>
