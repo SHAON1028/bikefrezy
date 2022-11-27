@@ -14,7 +14,7 @@ const Navbar = () => {
 
     return (
 
-        <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
+        <div className="px-4  py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
             <div className="relative flex items-center justify-between">
                 <a
                     href="/"
@@ -123,6 +123,7 @@ const Navbar = () => {
                             <div className="p-5 bg-white border rounded shadow-sm">
                                 <div className="flex items-center justify-between mb-4">
                                     <div>
+                                        
                                         <a
                                             href="/"
                                             aria-label="Company"
@@ -213,7 +214,7 @@ const Navbar = () => {
                         <button onClick={handleLogOut} className='btn btn-error btn-sm'>Sign Out</button>
                         </>:
                         <>
-                         <Link to="/login"><button className='btn btn-primary btn-sm'>Sign In</button></Link>
+                         <Link to="/login"><button className='btn btn-primary btn-sm '>Sign In</button></Link>
                         
                         </>
                        }
