@@ -9,7 +9,7 @@ const ProductsCards = ({product,setSelectProduct}) => {
    
     const{name,location,originalPrice,picture,postDate,resalePrice,sellerName,yearOfUse,email} = product;
     const [isVerification]= useVerification(email)
-    console.log(isVerification,email)
+    // console.log(isVerification,email)
     return (
         <div className='m-5'>
             <div className="min-w-screen min-h-screen bg-yellow-300 flex items-center p-5 lg:p-10 overflow-hidden relative">

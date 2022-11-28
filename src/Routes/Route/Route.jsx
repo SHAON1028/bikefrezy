@@ -6,6 +6,7 @@ import AllBuyer from "../../Pages/Dashboard/AdminRoute/AllBuyer";
 import AllSeller from "../../Pages/Dashboard/AdminRoute/AllSeller/AllSeller";
 import Dashboard from "../../Pages/Dashboard/Dashboard/Dashboard";
 import AddProduct from "../../Pages/Dashboard/SellerRoute/AddProduct/AddProduct";
+import MyProduct from "../../Pages/Dashboard/SellerRoute/Myproduct/MyProduct";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import Register from "../../Pages/Login/Register";
@@ -66,6 +67,11 @@ export const router = createBrowserRouter([
         {
             path:'/dashboard/addproduct',
             element: <AddProduct></AddProduct>
+        },
+        {
+            path:'/dashboard/myproduct/:email',
+            element: <MyProduct></MyProduct>,
+            loader: ({params}) => fetch(`http://localhost:5000/dashboard/myproduct/${params.email}`)
         },
     ]
 }
