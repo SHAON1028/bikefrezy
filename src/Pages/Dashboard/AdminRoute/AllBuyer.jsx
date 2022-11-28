@@ -32,6 +32,22 @@ const AllBuyer = () => {
             <GetLoader></GetLoader>
         </div>
     }
+    const handleDelte = (id) => {
+        fetch(`http://localhost:5000/users/${id}`, {
+            method: 'DELETE', 
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.deletedCount > 0){
+                console.log('delete')
+                refetch();
+                toast.success('Deleted successfully')
+            }
+        })
+    }
     return (
         <div>
 
@@ -67,7 +83,7 @@ const AllBuyer = () => {
                                             <span className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm"> Acceptable </span>
                                         </td>
                                         <td className="px-4 py-3 text-sm border">
-                                            <button className=' btn btn-sm btn-error'>Delete</button>
+                                            <button onClick={()=> handleDelte(buyer._id)} className=' btn btn-sm btn-error'>Delete</button>
                                         </td>
                                     </tr>)
                                 }
