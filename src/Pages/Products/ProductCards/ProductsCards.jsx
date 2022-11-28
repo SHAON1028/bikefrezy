@@ -2,10 +2,14 @@ import React from 'react';
 import {BsCalendar2DateFill} from 'react-icons/bs'
 import {ImLocation2} from 'react-icons/im'
 import {FaUser} from 'react-icons/fa'
+import { MdVerified } from 'react-icons/md';
+import useVerification from '../../../Hooks/useVerification';
 
 const ProductsCards = ({product,setSelectProduct}) => {
-    const{name,location,originalPrice,picture,postDate,resalePrice,sellerName,yearOfUse} = product;
-    
+   
+    const{name,location,originalPrice,picture,postDate,resalePrice,sellerName,yearOfUse,email} = product;
+    const [isVerification]= useVerification(email)
+    console.log(isVerification,email)
     return (
         <div className='m-5'>
             <div className="min-w-screen min-h-screen bg-yellow-300 flex items-center p-5 lg:p-10 overflow-hidden relative">
@@ -21,7 +25,13 @@ const ProductsCards = ({product,setSelectProduct}) => {
                 <div className="mb-10">
                     <h1 className="font-bold uppercase text-2xl mb-5">{name}</h1>
                    
-                    <p className='font-semibold flex items-center gap-1 text-gray-500 mb-2'><FaUser/>Seller: <span className='uppercase'>{sellerName}</span></p>
+                    {
+                        isVerification ? <>
+                        <p className='font-semibold flex items-center gap-1 text-gray-500 mb-2'><FaUser/>Seller: <span className='uppercase flex items-center gap-1'>{sellerName} <span className='text-sm text-blue-600'><MdVerified/></span></span></p>
+                        </>:<>
+                        <p className='font-semibold flex items-center gap-1 text-gray-500 mb-2'><FaUser/>Seller: <span className='uppercase'>{sellerName}</span></p>
+                        </>
+                    }
                     <p className='font-semibold flex items-center gap-2 text-gray-500 mb-2'><ImLocation2/>Location: {location}</p>
                     <p className='font-semibold text-gray-500 mb-2 flex items-center gap-2'><BsCalendar2DateFill/> {postDate}</p>
                     <p className="font-semibold text-gray-500 mb-2 text-sm">Year of Use: {yearOfUse}</p>

@@ -22,8 +22,9 @@ const AllSeller = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.modifiedCount > 0) {
-                    toast.success('successfully verified')
                     refetch();
+                    toast.success('successfully verified')
+                   
                 }
             })
     }
@@ -82,9 +83,17 @@ const AllSeller = () => {
                                             </div>
                                         </td>
                                         <td className="px-4 py-3 text-ms font-semibold border">{seller.email}</td>
-                                        <td className="px-4 py-3 text-xs border">
-                                            <span className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm"> Acceptable </span>
+                                       {
+                                         seller.status ? <>
+                                          <td className="px-4 py-3 text-xs border">
+                                            <span className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm"> Verfied </span>
                                         </td>
+                                          </> :<>
+                                          <td className="px-4 py-3 text-xs border">
+                                            <span onClick={()=>handleVerify(seller._id)} className="btn btn-sm text-blue-700 btn-ghost rounded-sm"> Verify </span>
+                                        </td>
+                                          </>
+                                       }
                                         <td className="px-4 py-3 text-sm border">
                                             <button onClick={()=> handleDelte(seller._id)} className=' btn btn-sm btn-error'>Delete</button>
                                         </td>

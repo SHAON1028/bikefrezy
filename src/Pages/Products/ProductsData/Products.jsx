@@ -9,7 +9,7 @@ const Products = () => {
  
  
   const allProducts = useLoaderData()
-  // console.log(allProducts.length)
+  console.log(allProducts.length,allProducts)
   console.log(selectProduct)
 
     return (

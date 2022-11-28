@@ -5,7 +5,7 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const {user,logOut} = useContext(AuthContext)
+    const { user, logOut } = useContext(AuthContext)
     const handleLogOut = () => {
         logOut()
             .then(() => { })
@@ -63,14 +63,14 @@ const Navbar = () => {
                         </a>
                     </li>
                     <li>
-                        <a
-                            href="/"
+                        <Link
+                            to="/dashboard"
                             aria-label="Product pricing"
                             title="Product pricing"
                             className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                         >
-                            Pricing
-                        </a>
+                            Dashboard
+                        </Link>
                     </li>
                     <li>
                         <Link
@@ -79,21 +79,21 @@ const Navbar = () => {
                             title="Blog"
                             className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                         >
-                           Blog
+                            Blog
                         </Link>
                     </li>
                 </ul>
                 <ul className="flex items-center hidden space-x-8 lg:flex">
                     <li>
-                       {
-                        user?.uid ? <>
-                        <button onClick={handleLogOut} className='btn btn-error btn-sm'>Sign Out</button>
-                        </>:
-                        <>
-                         <Link to="/login"><button className='btn btn-primary btn-sm'>Sign In</button></Link>
-                        
-                        </>
-                       }
+                        {
+                            user?.uid ? <>
+                                <button onClick={handleLogOut} className='btn btn-error btn-sm'>Sign Out</button>
+                            </> :
+                                <>
+                                    <Link to="/login"><button className='btn btn-primary btn-sm'>Sign In</button></Link>
+
+                                </>
+                        }
                     </li>
                 </ul>
                 <div className="lg:hidden">
@@ -123,7 +123,7 @@ const Navbar = () => {
                             <div className="p-5 bg-white border rounded shadow-sm">
                                 <div className="flex items-center justify-between mb-4">
                                     <div>
-                                        
+
                                         <a
                                             href="/"
                                             aria-label="Company"
@@ -189,36 +189,36 @@ const Navbar = () => {
                                             </a>
                                         </li>
                                         <li>
-                                            <a
-                                                href="/"
+                                            <Link
+                                                to="/dashboard"
                                                 aria-label="Product pricing"
                                                 title="Product pricing"
                                                 className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                             >
-                                                Pricing
-                                            </a>
+                                                Dashboard
+                                            </Link>
                                         </li>
                                         <li>
-                        <Link
-                            to="/blog"
-                            aria-label="About us"
-                            title="Blog"
-                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
-                           Blog
-                        </Link>
-                    </li>
-                        <li>
-                       {
-                        user?.uid ? <>
-                        <button onClick={handleLogOut} className='btn btn-error btn-sm'>Sign Out</button>
-                        </>:
-                        <>
-                         <Link to="/login"><button className='btn btn-primary btn-sm '>Sign In</button></Link>
-                        
-                        </>
-                       }
-                    </li>
+                                            <Link
+                                                to="/blog"
+                                                aria-label="About us"
+                                                title="Blog"
+                                                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                            >
+                                                Blog
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            {
+                                                user?.uid ? <>
+                                                    <button onClick={handleLogOut} className='btn btn-error btn-sm'>Sign Out</button>
+                                                </> :
+                                                    <>
+                                                        <Link to="/login"><button className='btn btn-primary btn-sm '>Sign In</button></Link>
+
+                                                    </>
+                                            }
+                                        </li>
                                     </ul>
                                 </nav>
                             </div>
