@@ -1,17 +1,17 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
-import GetLoader from '../../../shared/GetLoader/GetLoader';
-const AllSeller = () => {
-    const { data: sellers = [], refetch,isLoading } = useQuery({
+import { useQuery } from '@tanstack/react-query';
+import GetLoader from '../../shared/GetLoader/GetLoader';
+const AllBuyer = () => {
+    const { data: buyers = [], refetch,isLoading } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users/seller');
+            const res = await fetch('http://localhost:5000/users/buyer');
             const data = await res.json();
             return data;
         }
     });
-    // console.log(sellers)
+    // console.log(buyers)
     const handleVerify = id => {
         fetch(`http://localhost:5000/users/admin/${id}`, {
             method: 'PUT',
@@ -49,7 +49,7 @@ const AllSeller = () => {
                             </thead>
                             <tbody className="bg-white">
                                 {
-                                    sellers.map(seller => <tr key={seller._id} className="text-gray-700">
+                                    buyers.map(buyer => <tr key={buyer._id} className="text-gray-700">
                                         <td className="px-4 py-3 border">
                                             <div className="flex items-center text-sm">
                                                 <div className="relative w-8 h-8 mr-3 rounded-full md:block">
@@ -57,12 +57,12 @@ const AllSeller = () => {
                                                     <div className="absolute inset-0 rounded-full shadow-inner" aria-hidden="true"></div>
                                                 </div>
                                                 <div>
-                                                    <p className="font-semibold text-black">{seller.name}</p>
-                                                    <p className="text-xs text-gray-600">{seller.role}</p>
+                                                    <p className="font-semibold text-black">{buyer.name}</p>
+                                                    <p className="text-xs text-gray-600">{buyer.role}</p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-4 py-3 text-ms font-semibold border">{seller.email}</td>
+                                        <td className="px-4 py-3 text-ms font-semibold border">{buyer.email}</td>
                                         <td className="px-4 py-3 text-xs border">
                                             <span className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm"> Acceptable </span>
                                         </td>
@@ -81,4 +81,4 @@ const AllSeller = () => {
     );
 };
 
-export default AllSeller;
+export default AllBuyer;
