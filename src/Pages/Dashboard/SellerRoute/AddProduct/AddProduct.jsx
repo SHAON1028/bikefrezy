@@ -54,7 +54,7 @@ const AddProduct = () => {
 
                 }
 
-                // save doctor information to the database
+                
                 fetch('http://localhost:5000/products', {
                     method: 'POST',
                     headers: {
