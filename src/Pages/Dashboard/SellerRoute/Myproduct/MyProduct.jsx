@@ -1,9 +1,23 @@
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext } from 'react';
+import { useState } from 'react';
 import toast from 'react-hot-toast';
 import { useLoaderData } from 'react-router-dom';
+import { AuthContext } from '../../../../contexts/AuthProvider';
 
 const MyProduct = () => {
-    const products = useLoaderData()
+    const{user} = useContext(AuthContext)
+    const { data: products = [], refetch,isLoading } = useQuery({
+        queryKey: ['products'],
+        queryFn: async () => {
+            const res = await fetch(`http://localhost:5000/dashboard/myproduct/${user?.email}`);
+            const data = await res.json();
+            return data;
+        }
+    });
+    console.log(products)
+    // const products = useLoaderData()
+   
     console.log(products)
     const handleDelte = (id,name) => {
         fetch(`http://localhost:5000/products/${id}`, {
@@ -12,52 +26,55 @@ const MyProduct = () => {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
         })
-        .then(res => res.json())
+        .then(res => res.json()) 
         .then(data => {
             if(data.deletedCount > 0){
                 console.log('delete')
-               
+                refetch()
                 toast.success('Deleted successfully')
-                handleDeleteAd(name)
+                // handleDeleteAd(name)
             }
         })
     }
-    const handleadvertise = (product)=>{
+    const handleadvertise = (id)=>{
+        console.log(id)
        
-        fetch('http://localhost:5000/advertise', {
-            method: 'POST', 
+        fetch(`http://localhost:5000/products/${id}`, {
+            method: 'PUT', 
             headers: {
                 'content-type': 'application/json',
                 Authorization: `bearer ${localStorage.getItem('accessToken')}`
             },
-            body: JSON.stringify(product)
+           
         })
         .then(res=>res.json())
         .then(data=>{
-            if(data.acknowledged){
+            if(data.modifiedCount> 0){
+               refetch()
                 toast.success('advertised successfully')
             }
         })
     }
-    const handleDeleteAd = (name) => {
-        fetch(`http://localhost:5000/advertise/${name}`, {
-            method: 'DELETE', 
-            headers: {
-                'content-type': 'application/json',
-                Authorization: `bearer ${localStorage.getItem('accessToken')}`
-            },
-    })
-       .then(res => res.json())
-       .then(data=>{
-        if(data.deletedCount > 0){
-            console.log('delete')
+    // const handleDeleteAd = (name) => {
+    //     fetch(`http://localhost:5000/advertise/${name}`, {
+    //         method: 'DELETE', 
+    //         headers: {
+    //             'content-type': 'application/json',
+    //             Authorization: `bearer ${localStorage.getItem('accessToken')}`
+    //         },
+    // })
+    //    .then(res => res.json())
+    //    .then(data=>{
+    //     if(data.deletedCount > 0){
+    //         console.log('delete')
            
-            toast.success('Deleted successfully')
-        }
-       })
-    }
+    //         toast.success('Deleted successfully')
+    //     }
+    //    })
+    // }
     return (
         <div>
+            {products.length==0 && <p className='text-red-500 text-center'>No Product</p>}
               <section className="container mx-auto p-6 font-mono">
                 <div className="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                     <div className="w-full overflow-x-auto">
@@ -88,7 +105,13 @@ const MyProduct = () => {
                                          <p>{product.name}</p>
                                         </td>
                                         <td className="px-4 py-3 text-sm border">
-                                            <button onClick={()=>handleadvertise(product)} className=' btn btn-sm btn-primary'>Advertise</button>
+                                          
+                                           {
+                                            product.add ? <p>Advertised</p> :
+                                            <button onClick={()=>handleadvertise(product._id)} className=' btn btn-sm btn-primary'>Advertise</button>
+                                           }
+                                           
+                                          
                                         </td>
                                         <td className="px-4 py-3 text-sm border">
                                             <button onClick={()=> handleDelte(product._id,product.name)} className=' btn btn-sm btn-error'>Delete</button>

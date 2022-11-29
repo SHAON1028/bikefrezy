@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ import GetLoader from '../../../shared/GetLoader/GetLoader';
 
 
 const AddProduct = () => {
+    const [loading,setLoading] = useState(null)
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { user } = useContext(AuthContext)
     const [isVerification] = useVerification(user?.email)
@@ -28,6 +29,7 @@ const AddProduct = () => {
     
 
     const handleAddProduct = data => {
+        setLoading(true)
         const image = data.image[0];
         const formData = new FormData();
         formData.append('image', image);
@@ -66,6 +68,7 @@ const AddProduct = () => {
                 .then(res => res.json())
                 .then(result =>{
                     console.log(result);
+                    setLoading(false)
                     toast.success(`${data.name} is added successfully`);
                     // navigate('/dashboard/addproduct')
                 })
@@ -74,6 +77,11 @@ const AddProduct = () => {
     }
 
     if(isLoading){
+        return <div className='text-center'>
+        <GetLoader></GetLoader>
+    </div>
+    }
+    if(loading){
         return <div className='text-center'>
         <GetLoader></GetLoader>
     </div>

@@ -60,6 +60,7 @@ const AllSeller = () => {
                     <div className="w-full overflow-x-auto">
                         <table className="w-full">
                             <thead>
+                                
                                 <tr className="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
                                     <th className="px-4 py-3">Name</th>
                                     <th className="px-4 py-3">Email</th>
