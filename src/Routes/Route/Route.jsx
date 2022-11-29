@@ -13,7 +13,7 @@ import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import Register from "../../Pages/Login/Register";
 import MainProduct from "../../Pages/Products/MainProduct/MainProduct";
-import Products from "../../Pages/Products/ProductsData/Products";
+
 import Errorpage from "../../Pages/shared/ErrorPage/Errorpage";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
@@ -39,7 +39,7 @@ export const router = createBrowserRouter([
         },
         {
             path:'/products/:category',
-            element:<MainProduct></MainProduct>,
+            element:<PrivateRoute><MainProduct></MainProduct></PrivateRoute>,
             loader: ({params}) => fetch(`http://localhost:5000/products/${params.category}`)
         },
         {

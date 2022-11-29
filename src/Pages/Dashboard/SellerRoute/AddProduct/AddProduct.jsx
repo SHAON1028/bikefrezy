@@ -10,14 +10,14 @@ import GetLoader from '../../../shared/GetLoader/GetLoader';
 
 
 const AddProduct = () => {
-    const [loading,setLoading] = useState(null)
+    const [loading, setLoading] = useState(null)
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { user } = useContext(AuthContext)
     const [isVerification] = useVerification(user?.email)
     const imageHostKey = process.env.REACT_APP_imgbb_key;
-   
+
     const navigate = useNavigate();
-    
+
     const { data: catagories, isLoading } = useQuery({
         queryKey: ['categories'],
         queryFn: async () => {
@@ -26,7 +26,7 @@ const AddProduct = () => {
             return data;
         }
     })
-    
+
 
     const handleAddProduct = data => {
         setLoading(true)
@@ -38,61 +38,63 @@ const AddProduct = () => {
             method: 'POST',
             body: formData
         })
-        .then(res => res.json())
-        .then(imgData => {
-            if(imgData.success){
-                console.log(imgData.data.url);
-                const doctor = {
-                    name: data.name, 
-                    email:user?.email,
-                    sellerName:user?.displayName,
-                    picture: imgData.data.url,
-                    postDate:data.postDate,
-                    category:data.category,
-                    yearOfUse:data.yearOfUse,
-                    originalPrice:data.originalPrice,
-                    resalePrice:data.resalePrice,
-                    location:data.location,
+            .then(res => res.json())
+            .then(imgData => {
+                if (imgData.success) {
+                    console.log(imgData.data.url);
+                    const doctor = {
+                        name: data.name,
+                        email: user?.email,
+                        sellerName: user?.displayName,
+                        picture: imgData.data.url,
+                        postDate: data.postDate,
+                        category: data.category,
+                        yearOfUse: data.yearOfUse,
+                        originalPrice: data.originalPrice,
+                        resalePrice: data.resalePrice,
+                        location: data.location,
+                        condition: data.condition,
+                        description: data.description,
 
+                    }
+
+
+                    fetch('http://localhost:5000/products', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json',
+                            authorization: `bearer ${localStorage.getItem('accessToken')}`
+                        },
+                        body: JSON.stringify(doctor)
+                    })
+                        .then(res => res.json())
+                        .then(result => {
+                            console.log(result);
+                            setLoading(false)
+                            toast.success(`${data.name} is added successfully`);
+                            navigate(`/dashboard/myproduct/${user?.email}`)
+                        })
                 }
-
-                
-                fetch('http://localhost:5000/products', {
-                    method: 'POST',
-                    headers: {
-                        'content-type': 'application/json', 
-                        authorization: `bearer ${localStorage.getItem('accessToken')}`
-                    },
-                    body: JSON.stringify(doctor)
-                })
-                .then(res => res.json())
-                .then(result =>{
-                    console.log(result);
-                    setLoading(false)
-                    toast.success(`${data.name} is added successfully`);
-                    // navigate('/dashboard/addproduct')
-                })
-            }
-        })
+            })
     }
 
-    if(isLoading){
+    if (isLoading) {
         return <div className='text-center'>
-        <GetLoader></GetLoader>
-    </div>
+            <GetLoader></GetLoader>
+        </div>
     }
-    if(loading){
+    if (loading) {
         return <div className='text-center'>
-        <GetLoader></GetLoader>
-    </div>
+            <GetLoader></GetLoader>
+        </div>
     }
 
     return (
-        <div className='w-96 p-7'>
+        <div className='w-96 p-7 mx-auto '>
             <h2 className="text-4xl">Add a Product</h2>
-          
-        
-      
+
+
+
             <form onSubmit={handleSubmit(handleAddProduct)}>
                 <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Product Name</span></label>
@@ -110,18 +112,37 @@ const AddProduct = () => {
                 </div>
                 <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Category</span></label>
-                    <select 
-                    {...register('category')}
-                    className="select input-bordered w-full max-w-xs">
+                    <select
+                        {...register('category')}
+                        className="select input-bordered w-full max-w-xs">
                         {
                             catagories.map(category => <option
                                 key={category._id}
                                 value={category.categoryName}
                             >{category.categoryName}</option>)
                         }
-                        
-                        
+
+
                     </select>
+                </div>
+                <div className="form-control w-full max-w-xs">
+                    <label className="label"> <span className="label-text">Select Condition</span></label>
+                    <select
+                        {...register('condition')}
+                        className="select select-bordered w-full max-w-xs">
+                        <option  defaultValue>Excellent</option>
+                        <option>Good</option>
+                        <option>Fair</option>
+
+
+                    </select>
+                </div>
+                <div className="form-control w-full max-w-xs">
+                    <label className="label"> <span className="label-text">Description</span></label>
+                    <input type="text" {...register("description", {
+                        required: "description is Required"
+                    })} className="input input-bordered w-full max-w-xs" />
+                    {errors.description && <p className='text-red-500'>{errors.description.message}</p>}
                 </div>
                 <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Photo</span></label>
@@ -130,7 +151,7 @@ const AddProduct = () => {
                     })} className="input input-bordered w-full max-w-xs" />
                     {errors.img && <p className='text-red-500'>{errors.img.message}</p>}
                 </div>
-               
+
                 <div className="form-control w-full max-w-xs">
                     <label className="label"> <span className="label-text">Year of Use</span></label>
                     <input type="text" {...register("yearOfUse", {

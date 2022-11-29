@@ -18,8 +18,7 @@ const DashboardLayout = () => {
             <div className="drawer drawer-mobile lg:mt-10">
                 <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
                 <div className="drawer-content ">
-                    <Outlet></Outlet>
-                    <label htmlFor="my-drawer-2" className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50 drawer-button lg:hidden"><svg className="w-5 text-gray-600" viewBox="0 0 24 24">
+                <label htmlFor="my-drawer-2" className="p-2 -mr-1 transition duration-200 rounded focus:outline-none focus:shadow-outline hover:bg-deep-purple-50 focus:bg-deep-purple-50 drawer-button lg:hidden"><svg className="w-5 text-gray-600" viewBox="0 0 24 24">
                         <path
                             fill="currentColor"
                             d="M23,13H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,13,23,13z"
@@ -33,6 +32,8 @@ const DashboardLayout = () => {
                             d="M23,20H1c-0.6,0-1-0.4-1-1s0.4-1,1-1h22c0.6,0,1,0.4,1,1S23.6,20,23,20z"
                         />
                     </svg></label>
+                    <Outlet></Outlet>
+                    
                     <button
                         aria-label="Open Menu"
                         title="Open Menu"
@@ -47,8 +48,8 @@ const DashboardLayout = () => {
 
                 </div>
                 <div className="drawer-side">
-                    <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
-                    <ul className="menu p-4 lg:w-80 w-40 bg-base-100 text-base-content">
+                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
+                    <ul className="menu p-4 lg:w-80 w-40 bg-base-100 text-base-content"> 
 
                         {
                             !isAdmin && !isSeller && <Link to="/dashboard/myorder" className="flex items-center p-2 text-base font-normal bg-gray-700 rounded-lg dark:text-white hover:bg-green-500 hover:text-black mb-2">

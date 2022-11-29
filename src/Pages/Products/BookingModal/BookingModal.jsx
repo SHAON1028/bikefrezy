@@ -26,7 +26,8 @@ const BookingModal = ({ selectProduct, setSelectProduct }) => {
             product,
             price,
             location,
-            phone
+            phone,
+            picture:picture
 
 
 
