@@ -17,7 +17,7 @@ const Products = () => {
          <h1 className='text-center text-3xl font-bold '>{allProducts[0].category}</h1>
         <div>
         {
-            allProducts.map((product) => <ProductsCards product={product} key={product._id} setSelectProduct={setSelectProduct}></ProductsCards>)
+            allProducts.map((product) => <ProductsCards key={product._id} product={product}  setSelectProduct={setSelectProduct}></ProductsCards>)
          }
         </div>
         {

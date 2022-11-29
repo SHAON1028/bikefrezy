@@ -5,6 +5,7 @@ import Blog from "../../Pages/Blog/Blog";
 import AllBuyer from "../../Pages/Dashboard/AdminRoute/AllBuyer";
 import AllSeller from "../../Pages/Dashboard/AdminRoute/AllSeller/AllSeller";
 import Dashboard from "../../Pages/Dashboard/Dashboard/Dashboard";
+import MyOrders from "../../Pages/Dashboard/MyOrder/MyOrders";
 import AddProduct from "../../Pages/Dashboard/SellerRoute/AddProduct/AddProduct";
 import MyProduct from "../../Pages/Dashboard/SellerRoute/Myproduct/MyProduct";
 import Home from "../../Pages/Home/Home/Home";
@@ -72,6 +73,11 @@ export const router = createBrowserRouter([
             path:'/dashboard/myproduct/:email',
             element: <MyProduct></MyProduct>,
             loader: ({params}) => fetch(`http://localhost:5000/dashboard/myproduct/${params.email}`)
+        },
+        {
+            path:'/dashboard/myorder',
+            element: <MyOrders></MyOrders>,
+           
         },
     ]
 }

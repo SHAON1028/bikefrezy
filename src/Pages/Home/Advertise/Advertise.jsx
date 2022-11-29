@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useState } from 'react';
+import BookingModal from '../../Products/BookingModal/BookingModal';
 import AdvertiseProduct from './AdvertiseProduct';
 
 const Advertise = () => {
@@ -23,8 +24,13 @@ const Advertise = () => {
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-10 gap-2'>
 
                 {
-                    adverProducts.map(product => <AdvertiseProduct key={product._id} product={product}></AdvertiseProduct>)
+                    adverProducts.map(product => <AdvertiseProduct key={product._id} product={product} setSelectProduct={setSelectProduct}></AdvertiseProduct>)
                 }
+            </div>
+            <div>
+            {
+          selectProduct &&  <BookingModal  selectProduct={selectProduct} setSelectProduct={setSelectProduct}></BookingModal>
+        }
             </div>
             </>
            }
