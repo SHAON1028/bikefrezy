@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 
 const MyOrders = () => {
@@ -27,6 +28,7 @@ const MyOrders = () => {
                                 <tr className="text-md font-semibold tracking-wide text-left text-gray-900 bg-gray-100 uppercase border-b border-gray-600">
                                    
                                     <th className="px-4 py-3">Product Name</th>
+                                    <th className="px-4 py-3">Price</th>
                                     <th className="px-4 py-3">Status</th>
                                     <th className="px-4 py-3">Action</th>
                                 </tr>
@@ -39,9 +41,24 @@ const MyOrders = () => {
                                         <td className="px-4 py-3 text-md font-bold border">
                                          <p>{order.product}</p>
                                         </td>
+                                        <td className="px-4 py-3 text-md font-bold border">
+                                         <p>{order.price}</p>
+                                        </td>
                                         <td className="px-4 py-3 text-sm border">
                                           
-                                          <button className='btn btn-primary btn-sm  '>Pay</button>
+                                          {/* <button className='btn btn-primary btn-sm  '>Pay</button> */}
+                                          {
+                                        order.price && !order.paid && <Link
+                                            to={`/dashboard/payment/${order._id}`}
+                                        >
+                                            <button
+                                                className='btn btn-primary btn-sm'
+                                            >Pay</button>
+                                        </Link>
+                                    }
+                                    {
+                                        order.price && order.paid && <span className='text-green-500'>Paid</span>
+                                    }
                                            
                                           
                                         </td>
