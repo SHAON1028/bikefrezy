@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
-
+import logo from '../../../assets/logo.png'
+import logo2 from '../../../assets/logo3.png'
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { user, logOut } = useContext(AuthContext)
@@ -16,58 +17,33 @@ const Navbar = () => {
 
         <div className="px-4  py-5 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
             <div className="relative flex items-center justify-between">
-                <a
-                    href="/"
+                <Link
+                    to="/"
                     aria-label="Company"
                     title="Company"
-                    className="inline-flex items-center"
+                    className='text-red-500'
                 >
-                    <svg
-                        className="w-8 text-deep-purple-accent-400"
-                        viewBox="0 0 24 24"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeMiterlimit="10"
-                        stroke="currentColor"
-                        fill="none"
-                    >
-                        <rect x="3" y="1" width="7" height="12" />
-                        <rect x="3" y="17" width="7" height="6" />
-                        <rect x="14" y="1" width="7" height="6" />
-                        <rect x="14" y="11" width="7" height="12" />
-                    </svg>
-                    <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-                        Company
-                    </span>
-                </a>
+                    <img src={logo2} style={{"height" : "100px","width":"200px"}} alt="" />
+                    
+                </Link>
                 <ul className="flex items-center hidden space-x-8 lg:flex">
                     <li>
-                        <a
-                            href="/"
+                        <Link
+                            to="/"
                             aria-label="Our product"
                             title="Our product"
-                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                            className="font-bold  tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                         >
-                            Product
-                        </a>
+                            Home
+                        </Link>
                     </li>
-                    <li>
-                        <a
-                            href="/"
-                            aria-label="Our product"
-                            title="Our product"
-                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                        >
-                            Features
-                        </a>
-                    </li>
+                   
                     <li>
                         <Link
                             to="/dashboard"
                             aria-label="Product pricing"
                             title="Product pricing"
-                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                            className="font-bold tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                         >
                             Dashboard
                         </Link>
@@ -77,7 +53,7 @@ const Navbar = () => {
                             to="/blog"
                             aria-label="About us"
                             title="Blog"
-                            className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                            className="font-bold tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                         >
                             Blog
                         </Link>
@@ -124,31 +100,14 @@ const Navbar = () => {
                                 <div className="flex items-center justify-between mb-4">
                                     <div>
 
-                                        <a
-                                            href="/"
+                                        <Link
+                                            to="/"
                                             aria-label="Company"
                                             title="Company"
-                                            className="inline-flex items-center"
+                                            className=""
                                         >
-                                            <svg
-                                                className="w-8 text-deep-purple-accent-400"
-                                                viewBox="0 0 24 24"
-                                                strokeLinejoin="round"
-                                                strokeWidth="2"
-                                                strokeLinecap="round"
-                                                strokeMiterlimit="10"
-                                                stroke="currentColor"
-                                                fill="none"
-                                            >
-                                                <rect x="3" y="1" width="7" height="12" />
-                                                <rect x="3" y="17" width="7" height="6" />
-                                                <rect x="14" y="1" width="7" height="6" />
-                                                <rect x="14" y="11" width="7" height="12" />
-                                            </svg>
-                                            <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-                                                Company
-                                            </span>
-                                        </a>
+                                               <img src={logo2} style={{"height" : "100px","width":"200px"}} alt="" />
+                                        </Link>
                                     </div>
                                     <div>
                                         <button
@@ -169,31 +128,22 @@ const Navbar = () => {
                                 <nav>
                                     <ul className="space-y-4">
                                         <li>
-                                            <a
-                                                href="/"
+                                            <Link
+                                                to="/"
                                                 aria-label="Our product"
                                                 title="Our product"
-                                                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                                className="font-bold tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                             >
-                                                Product
-                                            </a>
+                                                Home
+                                            </Link>
                                         </li>
-                                        <li>
-                                            <a
-                                                href="/"
-                                                aria-label="Our product"
-                                                title="Our product"
-                                                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
-                                            >
-                                                Features
-                                            </a>
-                                        </li>
+                                       
                                         <li>
                                             <Link
                                                 to="/dashboard"
                                                 aria-label="Product pricing"
                                                 title="Product pricing"
-                                                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                                className="font-bold tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                             >
                                                 Dashboard
                                             </Link>
@@ -203,7 +153,7 @@ const Navbar = () => {
                                                 to="/blog"
                                                 aria-label="About us"
                                                 title="Blog"
-                                                className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                                                className="font-bold tracking-wide text-gray-700 transition-colors duration-200 hover:text-deep-purple-accent-400"
                                             >
                                                 Blog
                                             </Link>
