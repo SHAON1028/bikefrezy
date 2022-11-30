@@ -30,6 +30,8 @@ const MyOrders = () => {
                                     <th className="px-4 py-3">Product Name</th>
                                     <th className="px-4 py-3">Price</th>
                                     <th className="px-4 py-3">Status</th>
+                                    <th className="px-4 py-3">Report</th>
+                                    
                                    
                                 </tr>
                             </thead>
@@ -72,6 +74,18 @@ const MyOrders = () => {
                                            
                                           
                                         </td>
+                                     
+                                      <td className="px-4 py-3 text-sm border">
+                                         <Link to={`/dashboard/report/${order.product_id}`}>
+                                            <button className='btn btn-sm btn-error'>
+                                                Report
+
+                                            </button>
+                                            <p>{order.product_id}</p>
+                                            </Link>
+                                            
+                                        </td>
+                                      
                                        
                                     </tr>)
                                 }

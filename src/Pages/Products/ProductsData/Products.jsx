@@ -14,7 +14,10 @@ const Products = () => {
 
     return (
        <div className='m-16'>
-         <h1 className='text-center text-3xl font-bold '>{allProducts[0].category}</h1>
+        { allProducts.length===0 &&
+          <p className='text-center font-bold text-rose-600'>No products Here</p>
+        }
+         <h1 className='text-center text-3xl font-bold '>{allProducts[0]?.category}</h1>
         <div>
         {
             allProducts.map((product) => <ProductsCards key={product._id} product={product}  setSelectProduct={setSelectProduct}></ProductsCards>)
