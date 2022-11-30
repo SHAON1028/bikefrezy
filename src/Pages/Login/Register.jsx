@@ -10,12 +10,12 @@ const Register = () => {
     const { createUser, updateUser } = useContext(AuthContext);
     const [signUpError, setSignUPError] = useState('');
     const [createdUserEmail, setCreatedUserEmail] = useState('')
-    const [token] = useToken(createdUserEmail);
+    // const [token] = useToken(createdUserEmail);
     const navigate = useNavigate();
 
-    if(token){
-        navigate('/');
-    }
+    // if(token){
+    //     navigate('/');
+    // }
 
     const handleSignUp = (data) => {
         console.log(data)
@@ -31,6 +31,7 @@ const Register = () => {
                 updateUser(userInfo)
                     .then(() => {
                         saveUser(data.name, data.email,data.role);
+                        
                     })
                     .catch(err => console.log(err));
             })
@@ -53,6 +54,7 @@ const Register = () => {
         .then(data =>{
             console.log(data)
             setCreatedUserEmail(email);
+            navigate('/')
         })
     }
 
