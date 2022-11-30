@@ -10,7 +10,7 @@ const CheckOutForm = ({ order }) => {
 
     const stripe = useStripe();
     const elements = useElements();
-    const { price, product, name, _id,email } = order;
+    const { price, product, name, _id,email,product_id } = order;
 
     useEffect(() => {
         // Create PaymentIntent as soon as the page loads
@@ -92,12 +92,30 @@ const CheckOutForm = ({ order }) => {
                     if (data.insertedId) {
                         setSuccess('Congrats! your payment completed');
                         setTransactionId(paymentIntent.id);
+                        handleSold(product_id)
                     }
                 })
         }
         setProcessing(false);
 
 
+    }
+    const handleSold = (_id) =>{
+        
+        fetch(`http://localhost:5000/products/sold/${_id}`, {
+            method: 'PUT', 
+            headers: {
+                'content-type': 'application/json',
+                Authorization: `bearer ${localStorage.getItem('accessToken')}`
+            },
+           
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            if(data.modifiedCount> 0){
+             console.log('ok')
+            }
+        })
     }
 
     return (

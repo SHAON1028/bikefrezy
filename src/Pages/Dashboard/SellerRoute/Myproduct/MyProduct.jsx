@@ -1,8 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useContext } from 'react';
-import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { useLoaderData } from 'react-router-dom';
 import { AuthContext } from '../../../../contexts/AuthProvider';
 
 const MyProduct = () => {
@@ -16,9 +14,8 @@ const MyProduct = () => {
         }
     });
     console.log(products)
-    // const products = useLoaderData()
-   
-    console.log(products)
+    
+
     const handleDelte = (id,name) => {
         fetch(`http://localhost:5000/products/${id}`, {
             method: 'DELETE', 
@@ -55,23 +52,7 @@ const MyProduct = () => {
             }
         })
     }
-    // const handleDeleteAd = (name) => {
-    //     fetch(`http://localhost:5000/advertise/${name}`, {
-    //         method: 'DELETE', 
-    //         headers: {
-    //             'content-type': 'application/json',
-    //             Authorization: `bearer ${localStorage.getItem('accessToken')}`
-    //         },
-    // })
-    //    .then(res => res.json())
-    //    .then(data=>{
-    //     if(data.deletedCount > 0){
-    //         console.log('delete')
-           
-    //         toast.success('Deleted successfully')
-    //     }
-    //    })
-    // }
+   
     return (
         <div>
             {products.length==0 && <p className='text-red-500 text-center'>No Product</p>}
@@ -85,6 +66,8 @@ const MyProduct = () => {
                                     <th className="px-4 py-3">Name</th>
                                   
                                     <th className="px-4 py-3">Status</th>
+                                    <th className="px-4 py-3">Addvertise</th>
+                                    
                                     <th className="px-4 py-3">Action</th>
                                 </tr>
                             </thead>
@@ -104,11 +87,25 @@ const MyProduct = () => {
                                         <td className="px-4 py-3 text-md font-bold border">
                                          <p>{product.name}</p>
                                         </td>
+                                        <td className="px-4 py-3 text-md font-bold border">
+                                         
+                                         {
+                                            product.add==='ok' || !product.status ? <p className='text-green-500 text-sm '>Available</p> :
+                                            <p className='text-red-500 text-sm '>Sold</p>
+                                           }
+                                           
+                                        </td>
+                                        
                                         <td className="px-4 py-3 text-sm border">
                                           
                                            {
-                                            product.add ? <p>Advertised</p> :
-                                            <button onClick={()=>handleadvertise(product._id)} className=' btn btn-sm btn-primary'>Advertise</button>
+                                            product.add==='ok' ? <p>Advertised</p> :
+                                            <p>
+                                                {
+                                                    product.status==='sold' ? <button disabled onClick={()=>handleadvertise(product._id)} className=' btn btn-sm btn-primary'>Advertise</button>:
+                                                    <button onClick={()=>handleadvertise(product._id)} className=' btn btn-sm btn-primary'>Advertise</button>
+                                                }
+                                            </p>
                                            }
                                            
                                           
