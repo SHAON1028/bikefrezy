@@ -4,18 +4,18 @@ import GetLoader from '../../shared/GetLoader/GetLoader';
 import CatergoriesCard from './CatergoriesCard';
 
 const Categories = () => {
-    const [loading,setLoading] = useState(true)
-const [categories,setCategories] = useState([])
-axios.get('http://localhost:5000/categories')
-.then(data=>{
-    setCategories(data.data)
-    setLoading(false)
-})
-if(loading){
-    return <div className='text-center'>
+    const [loading, setLoading] = useState(true)
+    const [categories, setCategories] = useState([])
+    axios.get('https://resale-server-ten.vercel.app/categories')
+        .then(data => {
+            setCategories(data.data)
+            setLoading(false)
+        })
+    if (loading) {
+        return <div className='text-center'>
             <GetLoader></GetLoader>
-    </div>
-}
+        </div>
+    }
 
 
     return (

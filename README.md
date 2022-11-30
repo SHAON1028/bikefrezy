@@ -42,7 +42,7 @@ https://github.com/programming-hero-web-course-4/b612-used-products-resale-clien
  Live server Link:
 
 ```sh
-https://service-review-e7e40.web.app/
+https://resale-vehicle.web.app/
 
 
 

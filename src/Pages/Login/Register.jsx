@@ -30,8 +30,8 @@ const Register = () => {
                 }
                 updateUser(userInfo)
                     .then(() => {
-                        saveUser(data.name, data.email,data.role);
-                        
+                        saveUser(data.name, data.email, data.role);
+
                     })
                     .catch(err => console.log(err));
             })
@@ -41,21 +41,21 @@ const Register = () => {
             });
     }
 
-    const saveUser = (name, email,role) =>{
-        const user ={name, email,role};
-        fetch('http://localhost:5000/users', {
+    const saveUser = (name, email, role) => {
+        const user = { name, email, role };
+        fetch('https://resale-server-ten.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
             },
             body: JSON.stringify(user)
         })
-        .then(res => res.json())
-        .then(data =>{
-            console.log(data)
-            setCreatedUserEmail(email);
-            navigate('/')
-        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                setCreatedUserEmail(email);
+                navigate('/')
+            })
     }
 
     return (
@@ -94,7 +94,7 @@ const Register = () => {
                             with email</a>
 
                         <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
-                      
+
                     </div>
                     <p className='text-red-600'>{signUpError}</p>
 
@@ -104,18 +104,18 @@ const Register = () => {
                                 <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="name">Full Name</label></div>
 
                             <input  {...register("name", {
-                            required: "Name is Required"
-                        })}  className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="text" />
-                          {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
+                                required: "Name is Required"
+                            })} className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="text" />
+                            {errors.name && <p className='text-red-500'>{errors.name.message}</p>}
                         </div>
                         <div className="mt-4">
                             <div className="flex justify-between">
                                 <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="eamil">Email</label></div>
 
                             <input  {...register("email", {
-                            required: true
-                        })} className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="email" />
-                          {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
+                                required: true
+                            })} className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="email" />
+                            {errors.email && <p className='text-red-500'>{errors.email.message}</p>}
                         </div>
 
                         <div className="mt-4">
@@ -133,7 +133,7 @@ const Register = () => {
                         <div className='mt-4'>
                             <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="loggingPassword">Select Role</label>
                             <select {...register("role")} className="block w-full px-4 py-2 text-gray-500 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300">
-                                <option  defaultValue>Buyer</option>
+                                <option defaultValue>Buyer</option>
                                 <option>Seller</option>
                             </select>
                         </div>

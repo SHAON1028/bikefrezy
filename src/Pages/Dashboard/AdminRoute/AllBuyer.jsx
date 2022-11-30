@@ -3,17 +3,17 @@ import toast from 'react-hot-toast';
 import { useQuery } from '@tanstack/react-query';
 import GetLoader from '../../shared/GetLoader/GetLoader';
 const AllBuyer = () => {
-    const { data: buyers = [], refetch,isLoading } = useQuery({
+    const { data: buyers = [], refetch, isLoading } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/users/buyer');
+            const res = await fetch('https://resale-server-ten.vercel.app/users/buyer');
             const data = await res.json();
             return data;
         }
     });
     // console.log(buyers)
     const handleVerify = id => {
-        fetch(`http://localhost:5000/users/admin/${id}`, {
+        fetch(`https://resale-server-ten.vercel.app/users/admin/${id}`, {
             method: 'PUT',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
@@ -27,26 +27,26 @@ const AllBuyer = () => {
                 }
             })
     }
-    if(isLoading){
+    if (isLoading) {
         return <div className='text-center'>
             <GetLoader></GetLoader>
         </div>
     }
     const handleDelte = (id) => {
-        fetch(`http://localhost:5000/users/${id}`, {
-            method: 'DELETE', 
+        fetch(`https://resale-server-ten.vercel.app/users/${id}`, {
+            method: 'DELETE',
             headers: {
                 authorization: `bearer ${localStorage.getItem('accessToken')}`
             }
         })
-        .then(res => res.json())
-        .then(data => {
-            if(data.deletedCount > 0){
-                console.log('delete')
-                refetch();
-                toast.success('Deleted successfully')
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    console.log('delete')
+                    refetch();
+                    toast.success('Deleted successfully')
+                }
+            })
     }
     return (
         <div>
@@ -83,7 +83,7 @@ const AllBuyer = () => {
                                             <span className="px-2 py-1 font-semibold leading-tight text-green-700 bg-green-100 rounded-sm"> Acceptable </span>
                                         </td>
                                         <td className="px-4 py-3 text-sm border">
-                                            <button onClick={()=> handleDelte(buyer._id)} className=' btn btn-sm btn-error'>Delete</button>
+                                            <button onClick={() => handleDelte(buyer._id)} className=' btn btn-sm btn-error'>Delete</button>
                                         </td>
                                     </tr>)
                                 }

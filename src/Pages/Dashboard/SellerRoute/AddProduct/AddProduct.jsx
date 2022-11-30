@@ -21,7 +21,7 @@ const AddProduct = () => {
     const { data: catagories, isLoading } = useQuery({
         queryKey: ['categories'],
         queryFn: async () => {
-            const res = await fetch('http://localhost:5000/categories');
+            const res = await fetch('https://resale-server-ten.vercel.app/categories');
             const data = await res.json();
             return data;
         }
@@ -59,7 +59,7 @@ const AddProduct = () => {
                     }
 
 
-                    fetch('http://localhost:5000/products', {
+                    fetch('https://resale-server-ten.vercel.app/products', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json',
@@ -130,7 +130,7 @@ const AddProduct = () => {
                     <select
                         {...register('condition')}
                         className="select select-bordered w-full max-w-xs">
-                        <option  defaultValue>Excellent</option>
+                        <option defaultValue>Excellent</option>
                         <option>Good</option>
                         <option>Fair</option>
 

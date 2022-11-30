@@ -5,7 +5,7 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 
 const BookingModal = ({ selectProduct, setSelectProduct }) => {
     const { user } = useContext(AuthContext)
-    const { name, location, originalPrice, picture, postDate, resalePrice, sellerName, yearOfUse,_id } = selectProduct;
+    const { name, location, originalPrice, picture, postDate, resalePrice, sellerName, yearOfUse, _id } = selectProduct;
 
 
     const handleBooking = event => {
@@ -27,15 +27,15 @@ const BookingModal = ({ selectProduct, setSelectProduct }) => {
             price,
             location,
             phone,
-            picture:picture,
-            product_id:_id
+            picture: picture,
+            product_id: _id
 
 
 
         }
         console.log(order)
 
-        fetch('http://localhost:5000/orders', {
+        fetch('https://resale-server-ten.vercel.app/orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -50,7 +50,7 @@ const BookingModal = ({ selectProduct, setSelectProduct }) => {
                     toast.success('Order confirmed');
 
                 }
-                else{
+                else {
                     toast.error(data.message);
                 }
             })
@@ -73,32 +73,32 @@ const BookingModal = ({ selectProduct, setSelectProduct }) => {
 
                         <label className="label">
                             <span className="label-text">Name</span>
-                            
+
                         </label>
                         <input name="name" type="text" defaultValue={user?.displayName} disabled placeholder="Your Name" className="input w-full input-bordered" />
                         <label className="label">
                             <span className="label-text">Email</span>
-                            
+
                         </label>
                         <input name="email" type="email" defaultValue={user?.email} disabled placeholder="Email Address" className="input w-full input-bordered" />
                         <label className="label">
                             <span className="label-text">Product Name</span>
-                            
+
                         </label>
                         <input name="product" type="text" defaultValue={name} disabled placeholder="Your Name" className="input w-full input-bordered" />
                         <label className="label">
                             <span className="label-text">Price</span>
-                            
+
                         </label>
                         <input name="price" type="text" defaultValue={resalePrice} disabled placeholder="Your Name" className="input w-full input-bordered" />
                         <label className="label">
                             <span className="label-text">Phone Number</span>
-                            
+
                         </label>
                         <input name="phone" type="text" placeholder="Phone Number" className="input w-full input-bordered" />
                         <label className="label">
                             <span className="label-text">Location</span>
-                            
+
                         </label>
                         <input name="location" type="text" placeholder="Meeting Location" className="input w-full input-bordered" />
                         <br />

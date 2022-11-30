@@ -20,85 +20,85 @@ import Errorpage from "../../Pages/shared/ErrorPage/Errorpage";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const router = createBrowserRouter([
-  {
-    path:'/',
-    element:<Main></Main>,
-    errorElement:<Errorpage></Errorpage>,
-    children:[
-       
-        {
-            path:'/',
-            element:<Home></Home>
-        },
-        {
-            path:'/login',
-            element:<Login></Login>
-        },
-        {
-            path:'/register',
-            element:<Register></Register>,
-            
-        },
-        {
-            path:'/products/:category',
-            element:<PrivateRoute><MainProduct></MainProduct></PrivateRoute>,
-            loader: ({params}) => fetch(`http://localhost:5000/products/${params.category}`)
-        },
-        {
-            path:'/blog',
-            element:<Blog></Blog>,
-        }
-        
-    ]
-  },
-  {
-    path:'/dashboard',
-    errorElement:<Errorpage></Errorpage>,
-    element:<PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
-    children:[
-        {
-            path:'/dashboard',
-            element: <Dashboard></Dashboard>
-        },
-        {
-            path:'/dashboard/allseller',
-            element: <AllSeller></AllSeller>
-        },
-        {
-            path:'/dashboard/allbuyer',
-            element: <AllBuyer></AllBuyer>
-        },
-        {
-            path:'/dashboard/addproduct',
-            element: <AddProduct></AddProduct>
-        },
-        {
-            path:'/dashboard/myproduct/:email',
-            element: <MyProduct></MyProduct>,
-            loader: ({params}) => fetch(`http://localhost:5000/dashboard/myproduct/${params.email}`)
-        },
-        {
-            path:'/dashboard/myorder',
-            element: <MyOrders></MyOrders>,
-           
-        },
-        {
-            path: '/dashboard/payment/:id',
-            // element: <AdminRoute><Payment></Payment></AdminRoute>,
-            element:<Payment></Payment>,
-            loader: ({params}) => fetch(`http://localhost:5000/orders/${params.id}`)
-        },
-        {
-            path:'/dashboard/report/:id',
-            element:<PrivateRoute><Report></Report></PrivateRoute>,
-            loader: ({params}) => fetch(`http://localhost:5000/product/${params.id}`)
-        },
-        {
-            path:'/dashboard/reported',
-            element:<PrivateRoute><Reports></Reports></PrivateRoute>,
-            
-        },
-    ]
-}
+    {
+        path: '/',
+        element: <Main></Main>,
+        errorElement: <Errorpage></Errorpage>,
+        children: [
+
+            {
+                path: '/',
+                element: <Home></Home>
+            },
+            {
+                path: '/login',
+                element: <Login></Login>
+            },
+            {
+                path: '/register',
+                element: <Register></Register>,
+
+            },
+            {
+                path: '/products/:category',
+                element: <PrivateRoute><MainProduct></MainProduct></PrivateRoute>,
+                loader: ({ params }) => fetch(`https://resale-server-ten.vercel.app/products/${params.category}`)
+            },
+            {
+                path: '/blog',
+                element: <Blog></Blog>,
+            }
+
+        ]
+    },
+    {
+        path: '/dashboard',
+        errorElement: <Errorpage></Errorpage>,
+        element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+        children: [
+            {
+                path: '/dashboard',
+                element: <Dashboard></Dashboard>
+            },
+            {
+                path: '/dashboard/allseller',
+                element: <AllSeller></AllSeller>
+            },
+            {
+                path: '/dashboard/allbuyer',
+                element: <AllBuyer></AllBuyer>
+            },
+            {
+                path: '/dashboard/addproduct',
+                element: <AddProduct></AddProduct>
+            },
+            {
+                path: '/dashboard/myproduct/:email',
+                element: <MyProduct></MyProduct>,
+                loader: ({ params }) => fetch(`https://resale-server-ten.vercel.app/dashboard/myproduct/${params.email}`)
+            },
+            {
+                path: '/dashboard/myorder',
+                element: <MyOrders></MyOrders>,
+
+            },
+            {
+                path: '/dashboard/payment/:id',
+                // element: <AdminRoute><Payment></Payment></AdminRoute>,
+                element: <Payment></Payment>,
+                loader: ({ params }) => fetch(`https://resale-server-ten.vercel.app/orders/${params.id}`)
+            },
+            {
+                path: '/dashboard/report/:id',
+                element: <PrivateRoute><Report></Report></PrivateRoute>,
+                loader: ({ params }) => fetch(`https://resale-server-ten.vercel.app/product/${params.id}`)
+            },
+            {
+                path: '/dashboard/reported',
+                element: <PrivateRoute><Reports></Reports></PrivateRoute>,
+
+            },
+        ]
+    }
 
 ])
