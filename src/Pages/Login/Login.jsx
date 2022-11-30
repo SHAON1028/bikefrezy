@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useToken from '../../Hooks/useToken';
 
 const Login = () => {
     const { signInWithGoogle } = useContext(AuthContext)
@@ -10,15 +11,15 @@ const Login = () => {
     const { signIn } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
     const [loginUserEmail, setLoginUserEmail] = useState('');
-    // const [token] = useToken(loginUserEmail);
+    const [token] = useToken(loginUserEmail);
     const location = useLocation();
     const navigate = useNavigate();
 
     const from = location.state?.from?.pathname || '/';
 
-    // if (token) {
-    //     navigate(from, { replace: true });
-    // }
+    if (token) {
+        navigate(from, { replace: true });
+    }
 
     const handleLogin = data => {
         console.log(data);
@@ -119,7 +120,7 @@ const Login = () => {
                     </div>
                         </div>
                     </form>
-
+                    <p className='text-gray-500'>Dont have an account?</p>
                     <div className="flex items-center justify-between mt-4">
                         <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
 

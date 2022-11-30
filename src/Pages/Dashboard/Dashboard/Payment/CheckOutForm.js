@@ -1,7 +1,9 @@
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 const CheckOutForm = ({ order }) => {
+    const navigate = useNavigate()
     const [cardError, setCardError] = useState('');
     const [success, setSuccess] = useState('');
     const [processing, setProcessing] = useState(false);
@@ -93,6 +95,7 @@ const CheckOutForm = ({ order }) => {
                         setSuccess('Congrats! your payment completed');
                         setTransactionId(paymentIntent.id);
                         handleSold(product_id)
+                        // navigate('/dashboard/myorder')
                     }
                 })
         }
@@ -150,7 +153,8 @@ const CheckOutForm = ({ order }) => {
             {
                 success && <div>
                     <p className='text-green-500'>{success}</p>
-                    <p>Your transactionId: <span className='font-bold'>{transactionId}</span></p>
+                    <p>Your transactionId: <span className='font-bold'>{transactionId}</span></p><br/>
+                    <Link to='/dashboard/myorder'><button className='btn btn-sm btn-primary'>Go Back</button></Link>
                 </div>
             }
         </>
